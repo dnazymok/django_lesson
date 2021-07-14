@@ -7,7 +7,7 @@ class Post(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateField(auto_now=True)
     # category = models.ForeignKey('Category', on_delete=models.CASCADE, null=True, default=None, related_name='posts')
-    categories = models.ManyToManyField('Category')
+    categories = models.ManyToManyField('Category', through='PostCategories')
 
     class Meta:
         ordering = ['-updated_on']
@@ -22,3 +22,9 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class PostCategories(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True, default=None, related_name='post')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, default=None, related_name='category')
+    is_main = models.BooleanField(default=False)
