@@ -5,7 +5,7 @@ from django import forms
 
 def index(request):
     context = {
-        "posts": Post.objects.order_by("-created_on")
+        "posts": Post.objects.all()
     }
     return render(
         request,
@@ -26,6 +26,7 @@ def add(request):
             Post(title=form.cleaned_data["title"], content=form.cleaned_data["content"]).save()
             return redirect("/posts")
         return render(request, "posts/add.html", context={"form": form})
+
 
 class PostForm(forms.Form):
     title = forms.CharField(min_length=5)
