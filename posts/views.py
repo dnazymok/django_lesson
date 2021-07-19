@@ -21,6 +21,11 @@ class PostListView(ListView):
     template_name = "posts/index.html"
     context_object_name = "posts"
 
+    def get_queryset(self):
+        return Post.objects.prefetch_related(
+            'categories', 'categories__category'
+        )
+
 
 class PostDetailView(DetailView):
     model = Post
