@@ -6,7 +6,6 @@ class Post(models.Model):
     content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateField(auto_now=True)
-    # category = models.ForeignKey('Category', on_delete=models.CASCADE, null=True, default=None, related_name='posts')
     categories = models.ManyToManyField('Category', through='PostCategories')
 
     class Meta:

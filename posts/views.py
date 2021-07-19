@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+from django.views import View
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from .models import Post
 from django import forms
 
@@ -14,13 +16,14 @@ def index(request):
     )
 
 
-def add(request):
-    if request.method == "GET":
+class AddPostView(View):
+    def get(self, request):
         return render(
             request,
             "posts/add.html",
         )
-    elif request.method == "POST":
+
+    def post(self, request):
         form = PostForm(request.POST)
         if form.is_valid():
             Post(title=form.cleaned_data["title"], content=form.cleaned_data["content"]).save()
@@ -29,5 +32,11 @@ def add(request):
 
 
 class PostForm(forms.Form):
-    title = forms.CharField(min_length=5)
+    title = forms.CharField(min_length=2)
     content = forms.CharField(max_length=100)
+
+    def clean_title(self):
+        title = self.cleaned_data['title']
+        if len(title) > 5:
+            raise forms.ValidationError("Must be < 5")
+        return title

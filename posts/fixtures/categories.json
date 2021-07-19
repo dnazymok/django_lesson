@@ -1,0 +1,18 @@
+[
+{
+    "model": "posts.category",
+    "pk": 1,
+    "fields": {
+        "name": "sport",
+        "is_active": true
+    }
+},
+{
+    "model": "posts.category",
+    "pk": 2,
+    "fields": {
+        "name": "music",
+        "is_active": true
+    }
+}
+]
