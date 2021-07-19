@@ -5,15 +5,27 @@ from .models import Post
 from django import forms
 
 
-def index(request):
-    context = {
-        "posts": Post.objects.all()
-    }
-    return render(
-        request,
-        "posts/index.html",
-        context=context
-    )
+# def index(request):
+#     context = {
+#         "posts": Post.objects.all()
+#     }
+#     return render(
+#         request,
+#         "posts/index.html",
+#         context=context
+#     )
+
+
+class PostListView(ListView):
+    model = Post
+    template_name = "posts/index.html"
+    context_object_name = "posts"
+
+
+class PostDetailView(DetailView):
+    model = Post
+    template_name = "posts/post_profile.html"
+    context_object_name = "post"
 
 
 class AddPostView(View):
