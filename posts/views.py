@@ -1,13 +1,14 @@
 from django.shortcuts import render, redirect
 from django.views import View
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 from .models import Post
 from django import forms
 
 
-class PostForm(forms.Form):
-    title = forms.CharField(min_length=2)
-    content = forms.CharField(max_length=100)
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['title', 'content', 'status']
 
     def clean_title(self):
         title = self.cleaned_data['title']
@@ -43,7 +44,7 @@ class AddPostView(View):
     def post(self, request):
         form = PostForm(request.POST)
         if form.is_valid():
-            Post(title=form.cleaned_data["title"], content=form.cleaned_data["content"]).save()
+            form.save()
             return redirect("/posts")
         return render(request, "posts/add.html", context={"form": form})
 
