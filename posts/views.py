@@ -22,10 +22,10 @@ class PostListView(ListView):
     context_object_name = "posts"
 
     def get_queryset(self):
-        # return Post.objects.filter(status=Post.STATUS_PUBLISHED)
-        return Post.objects.prefetch_related(
-            'categories', 'categories__category'
-        )
+        return Post.objects.published()
+        # return Post.objects.prefetch_related(
+        #     'categories', 'categories__category'
+        # )
 
 
 class PostDetailView(DetailView):

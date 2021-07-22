@@ -1,6 +1,19 @@
 from django.db import models
 
 
+class PostQuerySet(models.QuerySet):
+    def published(self):
+        return self.filter(status=Post.STATUS_PUBLISHED)
+
+
+class PostManager(models.Manager):
+    def get_queryset(self):
+        return PostQuerySet(self.model, using=self._db)
+
+    def published(self):
+        return self.get_queryset().published()
+
+
 class Post(models.Model):
     STATUS_DRAFT = 'D'
     STATUS_PUBLISHED = 'P'
@@ -17,12 +30,16 @@ class Post(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateField(auto_now=True)
     categories = models.ManyToManyField('Category', through='PostCategories')
+    objects = PostManager()
 
     class Meta:
         ordering = ['-updated_on']
 
     def __str__(self):
         return self.title
+
+
+
 
 
 class Category(models.Model):
