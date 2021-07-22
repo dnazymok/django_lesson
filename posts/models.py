@@ -2,8 +2,18 @@ from django.db import models
 
 
 class Post(models.Model):
+    STATUS_DRAFT = 'D'
+    STATUS_PUBLISHED = 'P'
+    STATUS_REJECTED = 'R'
+    STATUS = (
+        (STATUS_DRAFT, 'Draft'),
+        (STATUS_PUBLISHED, 'Published'),
+        (STATUS_REJECTED, 'Rejected'),
+    )
+
     title = models.CharField(max_length=100, unique=True)
     content = models.TextField()
+    status = models.CharField(choices=STATUS, default=STATUS_DRAFT, max_length=255)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateField(auto_now=True)
     categories = models.ManyToManyField('Category', through='PostCategories')
