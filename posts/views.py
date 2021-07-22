@@ -47,6 +47,3 @@ class AddPostView(View):
             form.save()
             return redirect("/posts")
         return render(request, "posts/add.html", context={"form": form})
-
-
-

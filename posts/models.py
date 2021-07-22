@@ -1,4 +1,7 @@
 from django.db import models
+from django.contrib.contenttypes.fields import GenericRelation
+
+from tags.models import TaggedItem
 
 
 class PostQuerySet(models.QuerySet):
@@ -30,6 +33,7 @@ class Post(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateField(auto_now=True)
     categories = models.ManyToManyField('Category', through='PostCategories')
+    tags = GenericRelation(TaggedItem)
     objects = PostManager()
 
     class Meta:
