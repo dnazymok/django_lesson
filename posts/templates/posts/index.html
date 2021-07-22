@@ -9,6 +9,8 @@
     {% endfor %}
     <p class="blog-post-meta">{{post.created_on}} by <a href="#">Mark</a></p>
     <p>{{post.content}}</p>
+    <p><i>{{post.get_status_display}}</i></p>
 </article>
 {% endfor %}
 {% endblock %}
+
