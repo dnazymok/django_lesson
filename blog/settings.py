@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'debug_toolbar',
+    'django_celery_results',
+    'django_celery_beat',
 ]
 
 MIDDLEWARE = [
@@ -134,6 +136,11 @@ INTERNAL_IPS = [
     '127.0.0.1',
     # ...
 ]
+
+CELERY_BROKER_URL = 'redis://localhost'
+CELERY_RESULT_BACKEND = 'django-db'
+
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 
 try:
     from .settings_local import *
