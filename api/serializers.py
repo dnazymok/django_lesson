@@ -6,7 +6,7 @@ from posts.models import Post, Category
 class PostSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Post
-        fields = '__all__'
+        fields = ['title', 'content', 'status', 'created_on']
 
 
 class CategorySerializer(serializers.HyperlinkedModelSerializer):
