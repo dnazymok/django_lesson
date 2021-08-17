@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+import channels_redis
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
@@ -25,6 +27,18 @@ SECRET_KEY = 'django-insecure-+q3%yty(bv^e$0ou1df7&h&w46+zez5z9nv7m*t^g957*epz_5
 DEBUG = True
 
 ALLOWED_HOSTS = []
+
+# ASGI
+ASGI_APPLICATION = 'blog.asgi.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': "channels_redis.core.RedisChannelLayer",
+        'CONGIG': {
+            'hosts': [{'127.0.0.1', 6379}],
+        }
+    }
+}
 
 # Application definition
 
@@ -43,6 +57,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'django_celery_results',
     'django_celery_beat',
+    'channels',
 ]
 
 MIDDLEWARE = [

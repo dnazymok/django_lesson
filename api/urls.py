@@ -7,7 +7,7 @@ from api.views import PostViewSet, CategoryViewSet
 
 router = routers.DefaultRouter()
 # router.register(r'posts', PostViewSet)
-router.register(r'categories', CategoryViewSet)
+router.register(r'categories', CategoryViewSet, basename='category')
 
 urlpatterns = [
     path("", include(router.urls)),

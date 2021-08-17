@@ -58,3 +58,9 @@ class PostCategories(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True, default=None, related_name='post')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, default=None, related_name='category')
     is_main = models.BooleanField(default=False)
+
+
+class Comment(models.Model):
+    text = models.CharField(max_length=200)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True, default=None, related_name='comment_post')
+    created_at = models.DateTimeField(auto_now_add=True)
